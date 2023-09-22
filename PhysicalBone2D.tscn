@@ -1,0 +1,126 @@
+[gd_scene load_steps=3 format=3 uid="uid://gf6erk62auy1"]
+
+[sub_resource type="SkeletonModification2DPhysicalBones" id="SkeletonModification2DPhysicalBones_lxs2s"]
+physical_bone_chain_length = 1
+fetch_bones = null
+joint_0_nodepath = NodePath("PhysicalBone2D")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_vfcc6"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DPhysicalBones_lxs2s")
+
+[node name="Skeleton2D" type="Skeleton2D"]
+modification_stack = SubResource("SkeletonModificationStack2D_vfcc6")
+
+[node name="PhysicalBone2D" type="PhysicalBone2D" parent="."]
+position = Vector2(0, 260)
+bone2d_nodepath = NodePath("../Hip")
+bone2d_index = 0
+simulate_physics = true
+
+[node name="Hip" type="Bone2D" parent="."]
+position = Vector2(0, 260)
+rest = Transform2D(1, 0, 0, 1, 0, 260)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="HipPolygon" type="Polygon2D" parent="Hip"]
+position = Vector2(0, -50)
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="Chest" type="Bone2D" parent="Hip"]
+position = Vector2(0, -105)
+rest = Transform2D(1, 0, 0, 1, 0, -105)
+
+[node name="ChestPolygon" type="Polygon2D" parent="Hip/Chest"]
+position = Vector2(0, -50)
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="Head" type="Bone2D" parent="Hip/Chest"]
+position = Vector2(0, -105)
+rest = Transform2D(1, 0, 0, 1, 0, -105)
+auto_calculate_length_and_angle = false
+length = 50.0
+bone_angle = -90.0
+
+[node name="HeadPolygon" type="Polygon2D" parent="Hip/Chest/Head"]
+position = Vector2(0, -50)
+skeleton = NodePath("../../../..")
+polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+uv = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+
+[node name="LeftShoulder" type="Bone2D" parent="Hip/Chest"]
+position = Vector2(-15, -75)
+rest = Transform2D(1, 0, 0, 1, -15, -75)
+
+[node name="LeftShoulderPolygon" type="Polygon2D" parent="Hip/Chest/LeftShoulder"]
+position = Vector2(-50, 0)
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="LeftElbow" type="Bone2D" parent="Hip/Chest/LeftShoulder"]
+position = Vector2(-105, 0)
+rest = Transform2D(1, 0, 0, 1, -105, 0)
+auto_calculate_length_and_angle = false
+length = 100.0
+bone_angle = 180.0
+
+[node name="LeftElbowPolygon" type="Polygon2D" parent="Hip/Chest/LeftShoulder/LeftElbow"]
+position = Vector2(-50, 0)
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="RightShoulder" type="Bone2D" parent="Hip/Chest"]
+position = Vector2(15, -75)
+rest = Transform2D(1, 0, 0, 1, 15, -75)
+
+[node name="RightShoulderPolygon" type="Polygon2D" parent="Hip/Chest/RightShoulder"]
+position = Vector2(50, 0)
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="RightElbow" type="Bone2D" parent="Hip/Chest/RightShoulder"]
+position = Vector2(105, 0)
+rest = Transform2D(1, 0, 0, 1, 105, 0)
+auto_calculate_length_and_angle = false
+length = 100.0
+bone_angle = 0.0
+
+[node name="RightElbowPolygon" type="Polygon2D" parent="Hip/Chest/RightShoulder/RightElbow"]
+position = Vector2(50, 0)
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="LeftThigh" type="Bone2D" parent="Hip"]
+position = Vector2(-20, 5)
+rest = Transform2D(1, 0, 0, 1, -20, 5)
+
+[node name="LeftThighPolygon" type="Polygon2D" parent="Hip/LeftThigh"]
+position = Vector2(0, 50)
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="LeftCalf" type="Bone2D" parent="Hip/LeftThigh"]
+position = Vector2(0, 105)
+rest = Transform2D(1, 0, 0, 1, 0, 105)
+auto_calculate_length_and_angle = false
+length = 100.0
+bone_angle = 90.0
+
+[node name="LeftCalfPolygon" type="Polygon2D" parent="Hip/LeftThigh/LeftCalf"]
+position = Vector2(0, 50)
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="RightThigh" type="Bone2D" parent="Hip"]
+position = Vector2(20, 5)
+rest = Transform2D(1, 0, 0, 1, 20, 5)
+
+[node name="RightThighPolygon" type="Polygon2D" parent="Hip/RightThigh"]
+position = Vector2(0, 50)
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="RightCalf" type="Bone2D" parent="Hip/RightThigh"]
+position = Vector2(0, 105)
+rest = Transform2D(1, 0, 0, 1, 0, 105)
+auto_calculate_length_and_angle = false
+length = 100.0
+bone_angle = 90.0
+
+[node name="RightCalfPolygon" type="Polygon2D" parent="Hip/RightThigh/RightCalf"]
+position = Vector2(0, 50)
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)

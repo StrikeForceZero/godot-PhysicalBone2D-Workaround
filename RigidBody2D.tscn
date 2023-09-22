@@ -1,0 +1,162 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxklopjcjeulo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fpmvg"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krcsn"]
+size = Vector2(20, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5yg1"]
+size = Vector2(100, 20)
+
+[node name="Ragdoll" type="Node2D"]
+
+[node name="Head" type="RigidBody2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Head"]
+skeleton = NodePath("../../../Skeleton2D")
+polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+uv = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+shape = SubResource("RectangleShape2D_fpmvg")
+
+[node name="Head_Chest" type="PinJoint2D" parent="."]
+position = Vector2(0, 50)
+node_a = NodePath("../Head")
+node_b = NodePath("../Chest")
+
+[node name="Chest" type="RigidBody2D" parent="."]
+position = Vector2(0, 105)
+
+[node name="Polygon2D" type="Polygon2D" parent="Chest"]
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chest"]
+shape = SubResource("RectangleShape2D_krcsn")
+
+[node name="Chest_Hip" type="PinJoint2D" parent="."]
+position = Vector2(0, 155)
+node_a = NodePath("../Chest")
+node_b = NodePath("../Hip")
+
+[node name="Hip" type="RigidBody2D" parent="."]
+position = Vector2(0, 210)
+
+[node name="Polygon2D" type="Polygon2D" parent="Hip"]
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hip"]
+shape = SubResource("RectangleShape2D_krcsn")
+
+[node name="LeftShoulder_Chest" type="PinJoint2D" parent="."]
+position = Vector2(-15, 80)
+node_a = NodePath("../LeftShoulder")
+node_b = NodePath("../Chest")
+
+[node name="LeftShoulder" type="RigidBody2D" parent="."]
+position = Vector2(-65, 80)
+
+[node name="Polygon2D" type="Polygon2D" parent="LeftShoulder"]
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftShoulder"]
+shape = SubResource("RectangleShape2D_c5yg1")
+
+[node name="LeftElbow_LeftShoulder" type="PinJoint2D" parent="."]
+position = Vector2(-120, 80)
+node_a = NodePath("../LeftElbow")
+node_b = NodePath("../LeftShoulder")
+
+[node name="LeftElbow" type="RigidBody2D" parent="."]
+position = Vector2(-170, 80)
+
+[node name="Polygon2D" type="Polygon2D" parent="LeftElbow"]
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftElbow"]
+shape = SubResource("RectangleShape2D_c5yg1")
+
+[node name="RightShoulder_Chest" type="PinJoint2D" parent="."]
+position = Vector2(15, 80)
+node_a = NodePath("../RightShoulder")
+node_b = NodePath("../Chest")
+
+[node name="RightShoulder" type="RigidBody2D" parent="."]
+position = Vector2(65, 80)
+
+[node name="Polygon2D" type="Polygon2D" parent="RightShoulder"]
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightShoulder"]
+shape = SubResource("RectangleShape2D_c5yg1")
+
+[node name="RightElbow_RightShoulder" type="PinJoint2D" parent="."]
+position = Vector2(120, 80)
+node_a = NodePath("../RightElbow")
+node_b = NodePath("../RightShoulder")
+
+[node name="RightElbow" type="RigidBody2D" parent="."]
+position = Vector2(170, 80)
+
+[node name="Polygon2D" type="Polygon2D" parent="RightElbow"]
+polygon = PackedVector2Array(-50, -10, 50, -10, 50, 10, -50, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightElbow"]
+shape = SubResource("RectangleShape2D_c5yg1")
+
+[node name="LeftThigh_Hip" type="PinJoint2D" parent="."]
+position = Vector2(-10, 260)
+node_a = NodePath("../LeftThigh")
+node_b = NodePath("../Hip")
+
+[node name="LeftThigh" type="RigidBody2D" parent="."]
+position = Vector2(-20, 315)
+
+[node name="Polygon2D" type="Polygon2D" parent="LeftThigh"]
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftThigh"]
+shape = SubResource("RectangleShape2D_krcsn")
+
+[node name="LeftCalf_LeftThigh" type="PinJoint2D" parent="."]
+position = Vector2(-20, 365)
+node_a = NodePath("../LeftCalf")
+node_b = NodePath("../LeftThigh")
+
+[node name="LeftCalf" type="RigidBody2D" parent="."]
+position = Vector2(-20, 420)
+
+[node name="Polygon2D" type="Polygon2D" parent="LeftCalf"]
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCalf"]
+shape = SubResource("RectangleShape2D_krcsn")
+
+[node name="RightThigh_Hip" type="PinJoint2D" parent="."]
+position = Vector2(10, 260)
+node_a = NodePath("../RightThigh")
+node_b = NodePath("../Hip")
+
+[node name="RightThigh" type="RigidBody2D" parent="."]
+position = Vector2(20, 315)
+
+[node name="Polygon2D" type="Polygon2D" parent="RightThigh"]
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightThigh"]
+shape = SubResource("RectangleShape2D_krcsn")
+
+[node name="RightCalf_RightThigh" type="PinJoint2D" parent="."]
+position = Vector2(20, 365)
+node_a = NodePath("../RightCalf")
+node_b = NodePath("../RightThigh")
+
+[node name="RightCalf" type="RigidBody2D" parent="."]
+position = Vector2(20, 420)
+
+[node name="Polygon2D" type="Polygon2D" parent="RightCalf"]
+polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCalf"]
+shape = SubResource("RectangleShape2D_krcsn")
