@@ -1,28 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://gf6erk62auy1"]
+[gd_scene load_steps=8 format=3 uid="uid://gf6erk62auy1"]
 
 [sub_resource type="SkeletonModification2DPhysicalBones" id="SkeletonModification2DPhysicalBones_lxs2s"]
-physical_bone_chain_length = 1
+physical_bone_chain_length = 11
 fetch_bones = null
-joint_0_nodepath = NodePath("PhysicalBone2D")
+joint_0_nodepath = NodePath("PB_Hip")
+joint_1_nodepath = NodePath("PB_Hip/PB_Chest")
+joint_2_nodepath = NodePath("PB_Hip/PB_LeftTigh")
+joint_3_nodepath = NodePath("PB_Hip/PB_RightThigh")
+joint_4_nodepath = NodePath("PB_Hip/PB_Chest/PB_Head")
+joint_5_nodepath = NodePath("PB_Hip/PB_Chest/PB_LeftShoulder")
+joint_6_nodepath = NodePath("PB_Hip/PB_Chest/PB_RightShoulder")
+joint_7_nodepath = NodePath("PB_Hip/PB_LeftTigh/PB_LeftCalf")
+joint_8_nodepath = NodePath("PB_Hip/PB_RightThigh/PB_RightCalf")
+joint_9_nodepath = NodePath("PB_Hip/PB_Chest/PB_LeftShoulder/PB_LeftElbow")
+joint_10_nodepath = NodePath("PB_Hip/PB_Chest/PB_RightShoulder/PB_RightElbow")
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_vfcc6"]
-enabled = true
 modification_count = 1
 modifications/0 = SubResource("SkeletonModification2DPhysicalBones_lxs2s")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbv5t"]
+size = Vector2(20, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smb7r"]
+size = Vector2(20, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uswvf"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tsgy"]
+size = Vector2(100, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gg465"]
+size = Vector2(20, 100)
 
 [node name="Skeleton2D" type="Skeleton2D"]
 modification_stack = SubResource("SkeletonModificationStack2D_vfcc6")
 
-[node name="PhysicalBone2D" type="PhysicalBone2D" parent="."]
-position = Vector2(0, 260)
-bone2d_nodepath = NodePath("../Hip")
-bone2d_index = 0
-simulate_physics = true
-
 [node name="Hip" type="Bone2D" parent="."]
 position = Vector2(0, 260)
 rest = Transform2D(1, 0, 0, 1, 0, 260)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="HipPolygon" type="Polygon2D" parent="Hip"]
 position = Vector2(0, -50)
@@ -124,3 +141,162 @@ bone_angle = 90.0
 [node name="RightCalfPolygon" type="Polygon2D" parent="Hip/RightThigh/RightCalf"]
 position = Vector2(0, 50)
 polygon = PackedVector2Array(-10, -50, 10, -50, 10, 50, -10, 50)
+
+[node name="PB_Hip" type="PhysicalBone2D" parent="."]
+position = Vector2(0, 260)
+bone2d_nodepath = NodePath(".")
+bone2d_index = 0
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip"]
+position = Vector2(0, -48)
+shape = SubResource("RectangleShape2D_bbv5t")
+
+[node name="PB_Chest" type="PhysicalBone2D" parent="PB_Hip"]
+position = Vector2(0, -105)
+bone2d_nodepath = NodePath("../../Hip/Chest")
+bone2d_index = 1
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_Chest"]
+position = Vector2(0, -49)
+shape = SubResource("RectangleShape2D_smb7r")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_Chest"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_Head" type="PhysicalBone2D" parent="PB_Hip/PB_Chest"]
+position = Vector2(0, -100)
+bone2d_nodepath = NodePath("../../../Hip/Chest/Head")
+bone2d_index = 2
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_Chest/PB_Head"]
+position = Vector2(0, -55)
+shape = SubResource("RectangleShape2D_uswvf")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_Chest/PB_Head"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_LeftShoulder" type="PhysicalBone2D" parent="PB_Hip/PB_Chest"]
+position = Vector2(-15, -70)
+bone2d_nodepath = NodePath("../../../Hip/Chest/LeftShoulder")
+bone2d_index = 3
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_Chest/PB_LeftShoulder"]
+position = Vector2(-50, -5)
+shape = SubResource("RectangleShape2D_6tsgy")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_Chest/PB_LeftShoulder"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_LeftElbow" type="PhysicalBone2D" parent="PB_Hip/PB_Chest/PB_LeftShoulder"]
+position = Vector2(-105, 0)
+bone2d_nodepath = NodePath("../../../../Hip/Chest/LeftShoulder/LeftElbow")
+bone2d_index = 4
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_Chest/PB_LeftShoulder/PB_LeftElbow"]
+position = Vector2(-50, -5)
+shape = SubResource("RectangleShape2D_6tsgy")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_Chest/PB_LeftShoulder/PB_LeftElbow"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_RightShoulder" type="PhysicalBone2D" parent="PB_Hip/PB_Chest"]
+position = Vector2(15, -70)
+bone2d_nodepath = NodePath("../../../Hip/Chest/RightShoulder")
+bone2d_index = 5
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_Chest/PB_RightShoulder"]
+position = Vector2(50, -5)
+shape = SubResource("RectangleShape2D_6tsgy")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_Chest/PB_RightShoulder"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_RightElbow" type="PhysicalBone2D" parent="PB_Hip/PB_Chest/PB_RightShoulder"]
+position = Vector2(105, 0)
+bone2d_nodepath = NodePath("../../../../Hip/Chest/RightShoulder/RightElbow")
+bone2d_index = 6
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_Chest/PB_RightShoulder/PB_RightElbow"]
+position = Vector2(50, -5)
+shape = SubResource("RectangleShape2D_6tsgy")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_Chest/PB_RightShoulder/PB_RightElbow"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_LeftTigh" type="PhysicalBone2D" parent="PB_Hip"]
+position = Vector2(-20, 5)
+bone2d_nodepath = NodePath("../../Hip/LeftThigh")
+bone2d_index = 7
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_LeftTigh"]
+position = Vector2(0, 50)
+shape = SubResource("RectangleShape2D_gg465")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_LeftTigh"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_LeftCalf" type="PhysicalBone2D" parent="PB_Hip/PB_LeftTigh"]
+position = Vector2(0, 105)
+bone2d_nodepath = NodePath("../../../Hip/LeftThigh/LeftCalf")
+bone2d_index = 8
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_LeftTigh/PB_LeftCalf"]
+position = Vector2(0, 50)
+shape = SubResource("RectangleShape2D_gg465")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_LeftTigh/PB_LeftCalf"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_RightThigh" type="PhysicalBone2D" parent="PB_Hip"]
+position = Vector2(20, 5)
+bone2d_nodepath = NodePath("../../Hip/RightThigh")
+bone2d_index = 9
+simulate_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PB_Hip/PB_RightThigh"]
+position = Vector2(0, 50)
+shape = SubResource("RectangleShape2D_gg465")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_RightThigh"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="PB_RightCalf" type="PhysicalBone2D" parent="PB_Hip/PB_RightThigh"]
+position = Vector2(0, 105)
+bone2d_nodepath = NodePath("../../../Hip/RightThigh/RightCalf")
+bone2d_index = 10
+simulate_physics = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PB_Hip/PB_RightThigh/PB_RightCalf"]
+position = Vector2(0, 50)
+shape = SubResource("RectangleShape2D_gg465")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PB_Hip/PB_RightThigh/PB_RightCalf"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
